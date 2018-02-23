@@ -1,48 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { NativeRouter, Route, Link } from 'react-router-native';
+import { Provider } from 'react-redux';
+import {store} from './src/store';
+
+import routes from './src/routes/';
 
 export default class App extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      latitude: '',
-      longitude: ''
-    }
-    this.getData = this.getData.bind(this);
-  }
-  getData() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      let lat = position.coords.latitude;
-      let lon = position.coords.longitude;
-
-      this.setState({
-        latitude: lat,
-        longitude: lon
-      });
-    });
-    // fetch('http://188.226.153.11:4000/', {
-    //   method: 'get'
-    // })
-    // .then(resp => console.log(resp));
-    // setTimeout(()=>{
-    //
-    //   fetch('http://188.226.153.11:4000/echo', {
-    //     method: 'post',
-    //     body: JSON.stringify({'lat': lat, 'lon': lon})
-    //   })
-    //   .then((resp) => { return resp.json() })
-    //   .then((res) => { console.log('res:');console.log(res); });
-    // },1000);
-  }
-  componentDidMount() {
-      setInterval(this.getData, 5000);
-  }
   render() {
     return (
-      <View style={styles.container}>
-        <Text>latitude: {this.state.latitude}</Text>
-        <Text>longitude: {this.state.longitude}</Text>
-      </View>
+      <Provider store={store}>
+        <NativeRouter>
+          <View style={styles.container}>
+            {routes}
+          </View>
+        </NativeRouter>
+      </Provider>
     );
   }
 }
@@ -52,6 +25,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
+    justifyContent: 'center'
+  }
 });

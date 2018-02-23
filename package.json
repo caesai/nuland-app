@@ -3,24 +3,34 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-native-scripts": "1.11.1",
+    "@babel/preset-env": "^7.0.0-beta.40",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "jest-expo": "25.0.0",
-    "react-test-renderer": "16.2.0"
+    "react-test-renderer": "16.2.0",
+    "rn-nodeify": "github:mvayngrib/rn-nodeify"
   },
-  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "react-native-scripts start",
-    "eject": "react-native-scripts eject",
-    "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios",
-    "test": "node node_modules/jest/bin/jest.js"
+    "test": "node node_modules/jest/bin/jest.js",
+    "android": "react-native-scripts android"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
     "expo": "^25.0.0",
+    "fs": "0.0.1-security",
+    "node-wasm": "^0.1.4",
+    "path": "^0.12.7",
     "react": "16.2.0",
-    "react-native": "0.52.0"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
+    "react-native-fs": "^2.9.11",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-native": "^4.2.0",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0"
   }
 }
