@@ -4,12 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions';
 
-const fs = require('fs');
-
-function instantiate(bytes, imports) {
-  return WebAssembly.compile(bytes).then(m => new WebAssembly.Instance(m, imports));
-}
-
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -17,19 +11,6 @@ class Login extends React.Component {
       'log': '',
       'pas': ''
     }
-  }
-  logIn() {
-
-  }
-  componentDidMount() {
-    // async function run() {
-    //   const {signup} = await loadWasm('../wasm/geoclient.wasm');
-    //   const result = signup();
-    //   console.log(`result: ${result}`);
-    // }
-    //
-    // run();
-
   }
   render() {
     return(
@@ -52,7 +33,7 @@ class Login extends React.Component {
             })
           }
         }></TextInput>
-        <Button title='Sign In' onPress={()=>{this.logIn()}}></Button>
+        <Button onPress={()=>{}} title='Sign In'></Button>
       </View>
     )
   }

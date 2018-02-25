@@ -2,7 +2,7 @@
   "expo": {
     "sdkVersion": "25.0.0",
     "android": {
-      "package": "geoglobula"
+      "package": "NuLandGeoApp"
     },
     "name": "geoglobula",
     "slug": "geoglobula",

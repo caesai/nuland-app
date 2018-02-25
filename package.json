@@ -1,16 +1,13 @@
 {
-  "name": "geoglobula",
+  "name": "nulandgeoapp",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "@babel/preset-env": "^7.0.0-beta.40",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "jest-expo": "25.0.0",
-    "react-test-renderer": "16.2.0",
-    "rn-nodeify": "github:mvayngrib/rn-nodeify"
+    "jest-expo": "25.0.0"
   },
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "./index.js",
   "scripts": {
     "test": "node node_modules/jest/bin/jest.js",
     "android": "react-native-scripts android"
@@ -18,13 +15,17 @@
   "jest": {
     "preset": "jest-expo"
   },
+  "rnpm": {
+    "assets": [
+      "./wasm/"
+    ]
+  },
   "dependencies": {
+    "base-64": "^0.1.0",
     "expo": "^25.0.0",
     "fs": "0.0.1-security",
-    "node-wasm": "^0.1.4",
-    "path": "^0.12.7",
     "react": "16.2.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
+    "react-native": "0.53.3",
     "react-native-fs": "^2.9.11",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
