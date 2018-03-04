@@ -428,17 +428,20 @@ Module.STDWEB_PRIVATE.acquire_tmp = function( dummy ) {
 
     const __imports = {
         env: {
-            "__extjs_db0226ae1bbecd407e9880ee28ddc70fc3322d9c": function($0) {
-                $0 = Module.STDWEB_PRIVATE.to_js($0);Module.STDWEB_PRIVATE.unregister_raw_value (($0));
+            "__extjs_9f22d4ca7bc938409787341b7db181f8dd41e6df": function($0) {
+                Module.STDWEB_PRIVATE.increment_refcount( $0 );
             },
             "__extjs_80d6d56760c65e49b7be8b6b01c1ea861b046bf0": function($0) {
                 Module.STDWEB_PRIVATE.decrement_refcount( $0 );
             },
+            "__extjs_d25f1534e343c3a5ac9e108ed9a527234a93f5c9": function($0) {
+                Module.STDWEB_PRIVATE.from_js($0, (function(){console.log ("Hello motherfucker!");})());
+            },
             "__extjs_ff5103e6cc179d13b4c7a785bdce2708fd559fc0": function($0) {
                 Module.STDWEB_PRIVATE.tmp = Module.STDWEB_PRIVATE.to_js( $0 );
             },
-            "__extjs_9f22d4ca7bc938409787341b7db181f8dd41e6df": function($0) {
-                Module.STDWEB_PRIVATE.increment_refcount( $0 );
+            "__extjs_db0226ae1bbecd407e9880ee28ddc70fc3322d9c": function($0) {
+                $0 = Module.STDWEB_PRIVATE.to_js($0);Module.STDWEB_PRIVATE.unregister_raw_value (($0));
             },
             "__web_on_grow": function() {
                 const buffer = Module.instance.exports.memory.buffer;
@@ -460,22 +463,19 @@ Module.STDWEB_PRIVATE.acquire_tmp = function( dummy ) {
         Object.defineProperty( Module, 'web_free', { value: Module.instance.exports.__web_free } );
         Object.defineProperty( Module, 'web_table', { value: Module.instance.exports.__web_table } );
 
-        Module.exports.hash = function hash(string) {
+        Module.exports.signup = function signup(username, shared_secret) {
+    return Module.STDWEB_PRIVATE.acquire_tmp(Module.instance.exports.signup(Module.STDWEB_PRIVATE.prepare_any_arg(username), Module.STDWEB_PRIVATE.prepare_any_arg(shared_secret)));
+}
+;
+                Module.exports.hash = function hash(string) {
     return Module.STDWEB_PRIVATE.acquire_tmp(Module.instance.exports.hash(Module.STDWEB_PRIVATE.prepare_any_arg(string)));
 }
 ;
-                Module.exports.keccak = function keccak(string) {
-    return Module.STDWEB_PRIVATE.acquire_tmp(Module.instance.exports.keccak(Module.STDWEB_PRIVATE.prepare_any_arg(string)));
-}
-;
-                Module.exports.signup = function signup(username, password) {
-    return Module.STDWEB_PRIVATE.acquire_tmp(Module.instance.exports.signup(Module.STDWEB_PRIVATE.prepare_any_arg(username), Module.STDWEB_PRIVATE.prepare_any_arg(password)));
-}
-;
         __imports.env.__web_on_grow();
-
+        
     }
 
+    if( __load_asynchronously ) {
         return WebAssembly.instantiate( __wasm_module, __imports )
             .then( instance => {
                 __instantiate( instance );
@@ -486,24 +486,26 @@ Module.STDWEB_PRIVATE.acquire_tmp = function( dummy ) {
                 console.log( "Error loading Rust wasm module 'geoclient':", error );
                 throw error;
             });
-
+    } else {
+        const instance = new WebAssembly.Instance( __wasm_module, __imports );
+        __instantiate( instance );
+        return Module.exports;
+    }
 }
 
-    const RNFS = require('react-native-fs');
-    RNFS.readFile('/storage/emulated/0/wasm/geoclient.wasm' , 'base64')
-      .then((result) => {
-        let raw = require('base-64').decode(result);
-        let rawLength = raw.length;
-        let array = new Uint8Array(new ArrayBuffer(rawLength));
-        for(var i = 0; i < rawLength; i++) {
-          array[i] = raw.charCodeAt(i);
-        }
-        const mod = new WebAssembly.Module(array);
-        return __initialize( mod, true );
-    })
-    .then(res => {
-      Rust.client = res;
-    })
 
-    return Rust
+    if( typeof window === "undefined" ) {
+        const fs = require( "fs" );
+        const path = require( "path" );
+        const wasm_path = path.join( __dirname, "geoclient.wasm" );
+        const buffer = fs.readFileSync( wasm_path );
+        const mod = new WebAssembly.Module( buffer );
+
+        return __initialize( mod, false );
+    } else {
+        return fetch( "geoclient.wasm" )
+            .then( response => response.arrayBuffer() )
+            .then( bytes => WebAssembly.compile( bytes ) )
+            .then( mod => __initialize( mod, true ) );
+    }
 }));
