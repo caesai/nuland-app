@@ -10,7 +10,7 @@
   "main": "./index.js",
   "scripts": {
     "test": "node node_modules/jest/bin/jest.js",
-    "android": "react-native-scripts android"
+    "android": "react-native run-android"
   },
   "jest": {
     "preset": "jest-expo"

@@ -505,5 +505,6 @@ Module.STDWEB_PRIVATE.acquire_tmp = function( dummy ) {
       Rust.client = res;
     })
 
+    console.log(Rust)
     return Rust
 }));

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions';
+import {geoClient, checkStatus, parseJSON} from '../utils';
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,20 +13,23 @@ class Login extends React.Component {
       'pas': ''
     }
   }
+  componentDidMount() {
+    console.log()
+  }
   render() {
     return(
       <View>
         <Text style={styles.heading}>Sign In</Text>
-        <Text>Login</Text>
-        <TextInput
+        <Text style={styles.link}>Login</Text>
+        <TextInput style={styles.link}
           onChangeText={(e)=>{
             this.setState({
               'log': e
             })
           }
         }></TextInput>
-        <Text>Password</Text>
-        <TextInput
+        <Text style={styles.link}>Password</Text>
+        <TextInput style={styles.link}
           secureTextEntry={true}
           onChangeText={(e)=>{
             this.setState({
@@ -33,7 +37,36 @@ class Login extends React.Component {
             })
           }
         }></TextInput>
-        <Button onPress={()=>{}} title='Sign In'></Button>
+        <Button onPress={()=>{
+          geoClient.client.then(api => {
+            const signin_request = api.client.signup(this.state.log.toLowerCase().toString(), this.state.pas.toString());
+
+            fetch('http://188.226.153.11:4000/users/signin', {
+              method: 'POST',
+              body: signin_request,
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+              }
+            })
+            .then(checkStatus)
+            .then(function(response) {
+                console.log("Content-Type" + response.headers.get('Content-Type'))
+                console.log("Date" + response.headers.get('Date'))
+                console.log("Status" + response.status)
+                console.log("Status text" + response.statusText)
+                return response
+            })
+            .then(parseJSON)
+            .then((data) => {
+              console.log('request succeeded with JSON response', data);
+              this.props.dispatch(ActionCreators.actions.auth(data));
+              this.props.history.push('/');
+            }).catch(function(error) {
+              console.log('request failed', error)
+            });
+          })
+        }} title='Sign In'></Button>
       </View>
     )
   }
@@ -41,11 +74,12 @@ class Login extends React.Component {
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 24,
+    fontSize: 36,
     marginBottom: 20,
     fontWeight: 'bold'
   },
   link: {
+    fontSize: 24,
     marginBottom: 10
   }
 });
