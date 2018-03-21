@@ -5,13 +5,15 @@ import { NativeRouter, Route, Link } from 'react-router-native'
 
 import Home from '../views/MainView';
 import About from '../views/About';
-import Login from '../views/Login';
+import Chat from '../views/Chat';
+import Account from '../views/Account';
 
 const routes = (
     <View>
       <Route exact path='/' component={Home} />
       <Route exact path='/about' component={About} />
-      <Route exact path='/login' component={Login} />
+      <Route exact path='/chat' component={Chat} />
+      <Route exact path='/account' component={Account} />
     </View>
 )
 

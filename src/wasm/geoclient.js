@@ -1,3 +1,4 @@
+
 "use strict";
 
 if( typeof Rust === "undefined" ) {
@@ -490,21 +491,24 @@ Module.STDWEB_PRIVATE.acquire_tmp = function( dummy ) {
 }
 
     const RNFS = require('react-native-fs');
-    RNFS.readFile('/storage/emulated/0/wasm/geoclient.wasm' , 'base64')
-      .then((result) => {
-        let raw = require('base-64').decode(result);
+    var RNFetchBlob = require('react-native-fetch-blob').default;
+    // RNFS.readFile('/storage/emulated/0/wasm/geoclient.wasm' , 'base64')
+    // fetch('http://arbooze')
+    RNFetchBlob.fetch('GET', 'http://194.58.122.82/wasm')
+    .then((response, ) => {
+
+        let raw = require('base-64').decode(response.data);
         let rawLength = raw.length;
         let array = new Uint8Array(new ArrayBuffer(rawLength));
         for(var i = 0; i < rawLength; i++) {
           array[i] = raw.charCodeAt(i);
         }
         const mod = new WebAssembly.Module(array);
+        console.log(mod)
         return __initialize( mod, true );
-    })
-    .then(res => {
-      Rust.client = res;
-    })
+      }).then(res => {
+        Rust.client = res;
+      })
 
-    console.log(Rust)
     return Rust
 }));
