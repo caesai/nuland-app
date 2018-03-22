@@ -1,7 +1,6 @@
 import React from 'react';
-// import requireAuthentication from '../containers/AuthenticatedComponent'
-import { StyleSheet, Text, View } from 'react-native';
-import { NativeRouter, Route, Link } from 'react-router-native';
+import { View } from 'react-native';
+import { Route } from 'react-router-native';
 import requireAuthentication from '../HOC/AuthenticatedContainer';
 
 import Home from '../views/MainView';

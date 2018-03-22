@@ -37,6 +37,7 @@ export const logIn = createReducer(initialState, {
     }
   },
   [ActionTypes.LOGIN](state, action) {
+    console.log(action)
     return {
       name: action.payload.username,
       isAuthenticated: true,
