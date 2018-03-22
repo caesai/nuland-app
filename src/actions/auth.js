@@ -8,6 +8,10 @@ export const actions = {
     type: 'SIGNIN',
     payload
   }),
+  login: (payload) => ({
+    type: 'LOGIN',
+    payload
+  }),
   logout: () => ({
     type: 'LOGOUT'
   })

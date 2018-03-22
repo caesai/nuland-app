@@ -12,7 +12,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <NativeRouter>
           <View style={styles.container}>
-            {routes}
+              {routes}
           </View>
         </NativeRouter>
       </Provider>

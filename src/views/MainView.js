@@ -1,49 +1,44 @@
 import React from 'react';
-import { StyleSheet, Text, PermissionsAndroid, View, TextInput, Button } from 'react-native';
-import { Link } from 'react-router-native';
+import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { ActionCreators } from '../actions';
-import {geoClient, checkStatus, parseJSON} from '../utils';
+import requestPermission from '../utils';
+import {Redirect} from 'react-router-native';
+import Login from '../components/Login';
+import {actions} from '../actions/auth';
 
-function mapDispatchToProps (dispatch){
-  return bindActionCreators(ActionCreators, dispatch);
-}
+const mapStateToProps = (state) => ({
+  auth: state.logIn.isAuthenticated
+})
 
 const Geolocation = navigator.geolocation;
-
-
-async function requestPermission() {
-  try {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      {
-        'title': 'Nuland needs your permission.',
-        'message': `Nuland App needs permission to use your location`
-      }
-    )
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log("You can use the camera")
-    } else {
-      console.log("Camera permission denied")
-    }
-  } catch (err) {
-    console.warn(err)
-  }
-}
 
 class MainView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      auth: false,
       latitude: null,
       longitude: null,
-      'log': '',
-      'pas': '',
       error: null
     };
   }
+  async getUserData() {
+    try {
+      const value = await AsyncStorage.getItem('nuland.storage');
+      if (value !== null){
+        // We have data!!
+        console.log(value);
+        this.props.dispatch(actions.login(value));
+        setTimeout(()=>{
+          console.log(this.props)
+        }, 1000)
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  }
   componentDidMount() {
+    this.getUserData();
     requestPermission();
     Geolocation.watchPosition(
       (position) => {
@@ -56,65 +51,21 @@ class MainView extends React.Component {
       (error) => this.setState({ error: error.message })
       // { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-    console.log(this.props)
   }
   componentWillUnmount() {
     Geolocation.clearWatch(this.watchId);
   }
   render() {
-    return (
-      <View>
-        <Text style={styles.heading}>NuLand</Text>
-        <Text style={styles.link}>Login</Text>
-        <TextInput style={styles.link}
-          onChangeText={(e)=>{
-            this.setState({
-              'log': e
-            })
-          }
-        }></TextInput>
-        <Text style={styles.link}>Password</Text>
-        <TextInput style={styles.link}
-          secureTextEntry={true}
-          onChangeText={(e)=>{
-            this.setState({
-              'pas': e
-            })
-          }
-        }></TextInput>
-        <Button onPress={()=>{
-          geoClient.client.then(api => {
-            const signin_request = api.client.signup(this.state.log.toLowerCase().toString(), this.state.pas.toString());
-
-            fetch('http://188.226.153.11:4000/users/signin', {
-              method: 'POST',
-              body: signin_request,
-              headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json'
-              }
-            })
-            .then(checkStatus)
-            .then(function(response) {
-                console.log("Content-Type" + response.headers.get('Content-Type'))
-                console.log("Date" + response.headers.get('Date'))
-                console.log("Status" + response.status)
-                console.log("Status text" + response.statusText)
-                return response
-            })
-            .then(parseJSON)
-            .then((data) => {
-              console.log('request succeeded with JSON response', data);
-              this.props.dispatch(ActionCreators.actions.auth(data));
-              this.props.history.push('/chat');
-            }).catch(function(error) {
-              console.log('request failed', error)
-            });
-          })
-        }} title='Sign In'></Button>
-        <Link to='/about'><Text style={styles.link}>?</Text></Link>
-      </View>
-    )
+    if(this.props.auth) {
+      return <Redirect to='/chat' />
+    } else {
+      return (
+        <View>
+          <Text style={styles.heading}>Welcome to NuLand</Text>
+          <Login />
+        </View>
+      )
+    }
   }
 }
 
@@ -131,9 +82,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const authStateToProps = (state) => ({
-  auth: state.logIn.isAuthenticated,
-  name: state.logIn.name
-});
-
-export default connect(mapDispatchToProps)(MainView);
+export default connect(mapStateToProps)(MainView);
