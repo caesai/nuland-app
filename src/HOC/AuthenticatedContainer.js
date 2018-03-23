@@ -7,6 +7,7 @@ import requestPermission from '../utils';
 import {actions} from '../actions/geo';
 import Swiper from 'react-native-swiper';
 import Account from '../views/Account';
+import Camera from '../views/Camera';
 
 const Geolocation = navigator.geolocation;
 
@@ -51,8 +52,10 @@ export default function requireAuthentication(Component) {
                 loop={false}
                 height={height}
                 width={width}
+                index={1}
                 showButtons={false}
                 removeClippedSubviews={false}>
+                <Camera />
                 <Component {...this.props} />
                 <Account />
               </Swiper>
