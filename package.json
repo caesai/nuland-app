@@ -10,7 +10,8 @@
   "main": "./index.js",
   "scripts": {
     "test": "node node_modules/jest/bin/jest.js",
-    "release": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest wasm/",
+    "start": "react-native start",
+    "build": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
     "android": "react-native run-android"
   },
   "jest": {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage, NetInfo } from 'react-native';
 import { connect } from 'react-redux';
 import {Redirect} from 'react-router-native';
 import Login from '../components/Login';
@@ -13,6 +13,8 @@ class MainView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      status: false,
+      connection: '',
       auth: false
     };
   }
@@ -27,8 +29,18 @@ class MainView extends React.Component {
       console.log(error);
     }
   }
+  handleConnectionChange = (isConnected) => {
+    this.setState({ status: isConnected });
+    console.log(`is connected: ${this.state.status}`);
+    this.setState({ connection: `is connected: ${this.state.status}`});
+  }
   componentDidMount() {
     this.getUserData();
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectionChange);
+
+    NetInfo.isConnected.fetch().done(
+      (isConnected) => { this.setState({ status: isConnected }); }
+    );
   }
   render() {
     if(this.props.auth) {
@@ -36,6 +48,7 @@ class MainView extends React.Component {
     } else {
       return (
         <View>
+          <Text style={styles.network}>connected: {this.state.status ? 'true' : 'false'}</Text>
           <Text style={styles.heading}>Welcome to NuLand</Text>
           <Login />
         </View>
@@ -54,6 +67,9 @@ const styles = StyleSheet.create({
     fontSize: 26,
     marginBottom: 20,
     marginTop: 20
+  },
+  network: {
+    fontSize: 10
   }
 });
 

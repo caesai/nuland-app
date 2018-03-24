@@ -1,7 +1,7 @@
-const geoClient = import('../wasm/geoclient.js')
-.then(client => {
-  return client;
-});
+// const geoClient = import('../wasm/geoclient.js')
+// .then(client => {
+//   return client;
+// });
 
 export const actions = {
   auth: (payload) => ({
@@ -17,4 +17,4 @@ export const actions = {
   })
 };
 
-export default geoClient
+// export default geoClient

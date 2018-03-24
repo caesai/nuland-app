@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { connect } from 'react-redux';
 import { ActionCreators } from '../actions';
-import {geoClient, checkStatus, parseJSON} from '../utils';
+// import {geoClient, checkStatus, parseJSON} from '../utils';
+import { checkStatus, parseJSON} from '../utils';
 
 class Login extends React.Component {
   constructor(props) {
@@ -34,12 +35,12 @@ class Login extends React.Component {
           }
         }></TextInput>
         <Button onPress={()=>{
-          geoClient.client.then(api => {
-            const signin_request = api.client.signup(this.state.log.toLowerCase().toString(), this.state.pas.toString());
-
-            fetch('http://188.226.153.11:4000/users/signin', {
+          // geoClient.client.then(api => {
+            // const signin_request = api.client.signup(this.state.log.toLowerCase().toString(), this.state.pas.toString());
+            // console.log(signin_request)
+            fetch('http://146.185.128.182:4000/users/signin', {
               method: 'POST',
-              body: signin_request,
+              body: '{"proof":"+wAd/P/RyJnzKXhxQGJC8JeuzxpTQszz680RYUYYjks=","username":"admin"}',
               headers: {
                   'Accept': 'application/json',
                   'Content-Type': 'application/json'
@@ -60,7 +61,7 @@ class Login extends React.Component {
             }).catch(function(error) {
               console.log('request failed', error)
             });
-          })
+          // })
         }} title='Sign In'></Button>
       </View>
     )

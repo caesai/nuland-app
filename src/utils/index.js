@@ -1,11 +1,11 @@
 import {PermissionsAndroid} from 'react-native';
-
-export const geoClient = {
-  client: import('../wasm/geoclient.js')
-  .then(client => {
-    return client;
-  })
-}
+//
+// export const geoClient = {
+//   client: import('../wasm/geoclient.js')
+//   .then(client => {
+//     return client;
+//   })
+// }
 
 export function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
