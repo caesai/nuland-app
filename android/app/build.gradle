@@ -95,10 +95,10 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.NuLand"
+        applicationId "com.nuland"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
@@ -139,11 +139,9 @@ android {
 dependencies {
     compile project(':react-native-fs')
     compile project(':react-native-fetch-blob')
-    compile (project(':react-native-camera')) {
-        exclude group: "com.android.support"
-    }
+    compile project(':react-native-camera')
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:24.+"
+    compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
 }
 
