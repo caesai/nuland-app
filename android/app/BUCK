@@ -45,12 +45,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.nulandgeoapp",
+    package = "com.NuLand",
 )
 
 android_resource(
     name = "res",
-    package = "com.nulandgeoapp",
+    package = "com.NuLand",
     res = "src/main/res",
 )
 

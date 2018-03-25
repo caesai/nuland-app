@@ -1,4 +1,4 @@
-rootProject.name = 'nulandgeoapp'
+rootProject.name = 'NuLand'
 include ':react-native-fs'
 project(':react-native-fs').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fs/android')
 include ':react-native-fetch-blob'

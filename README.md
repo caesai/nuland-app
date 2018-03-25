@@ -15,7 +15,7 @@ Set your device in development mode, follow instructions and enable all needed o
 To instantiate App on device follow
 
 ```
-npm run start
+npm run start-dev
 ```
 
 In another console you should run
