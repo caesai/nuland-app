@@ -8,7 +8,7 @@ Android SDK Platform
 Android Virtual Device
 ```
 
-Full guide [https://facebook.github.io/react-native/docs/getting-started.html](is here).
+Full guide [is here](https://facebook.github.io/react-native/docs/getting-started.html).
 
 Set your device in development mode, follow instructions and enable all needed options to install apps on your device.
 

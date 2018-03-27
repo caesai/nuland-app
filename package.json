@@ -5,7 +5,9 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "jest-expo": "25.0.0"
+    "jest-expo": "25.0.0",
+    "metro": "^0.31.0",
+    "metro-core": "^0.31.0"
   },
   "main": "./index.js",
   "scripts": {
