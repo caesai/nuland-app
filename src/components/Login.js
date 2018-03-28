@@ -16,17 +16,30 @@ class Login extends React.Component {
   render() {
     return(
       <View>
-        <Text style={styles.heading}>Sign In</Text>
-        <Text style={styles.link}>Login</Text>
-        <TextInput style={styles.link}
+        <TextInput
+          style={{
+            backgroundColor: '#fff',
+            marginTop: 15,
+            marginBottom: 15,
+            opacity: 0.6,
+            width: 300
+          }}
+          placeholder="Your name"
           onChangeText={(e)=>{
             this.setState({
               'log': e
             })
           }
         }></TextInput>
-        <Text style={styles.link}>Password</Text>
-        <TextInput style={styles.link}
+        <TextInput
+          style={{
+            backgroundColor: '#fff',
+            width: 300,
+            marginTop: 15,
+            marginBottom: 15,
+            opacity: 0.6
+          }}
+          placeholder="Your password"
           secureTextEntry={true}
           onChangeText={(e)=>{
             this.setState({
@@ -68,17 +81,6 @@ class Login extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  heading: {
-    fontSize: 36,
-    marginBottom: 20,
-    fontWeight: 'bold'
-  },
-  link: {
-    fontSize: 24,
-    marginBottom: 10
-  }
-});
 
 const mapStateToProps = (state) => ({
   auth: state.logIn.isAuthenticated,

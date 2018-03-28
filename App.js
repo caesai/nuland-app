@@ -3,17 +3,26 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NativeRouter, Route, Link } from 'react-router-native';
 import { Provider } from 'react-redux';
 import {store} from './src/store';
+import styled from "styled-components";
 
 import routes from './src/routes/';
+
+const MainContainer = styled.View`
+  background: #ecf4fa;
+  max-width: 800px;
+`;
 
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
         <NativeRouter>
-          <View style={styles.container}>
+          <MainContainer style={{
+            alignItems: 'center',
+            flex: 1
+          }}>
             {routes}
-          </View>
+          </MainContainer>
         </NativeRouter>
       </Provider>
     );
