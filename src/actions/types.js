@@ -7,3 +7,5 @@ export const SIGNUP = 'SIGNUP';
 export const SIGNIN = 'SIGNIN';
 
 export const GETLOCATION = 'GETLOCATION';
+
+export const SET_TAB = 'SET_TAB';

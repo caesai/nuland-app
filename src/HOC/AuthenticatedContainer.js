@@ -5,9 +5,12 @@ import { View, Text, Dimensions } from 'react-native';
 import {Link} from 'react-router-native';
 import requestPermission from '../utils';
 import {actions} from '../actions/geo';
+import {navActions} from '../actions/nav';
 import Swiper from 'react-native-swiper';
+
 import Account from '../views/Account';
 import Camera from '../views/Camera';
+import Nav from '../components/Nav';
 
 const Geolocation = navigator.geolocation;
 
@@ -48,13 +51,23 @@ export default function requireAuthentication(Component) {
       if (this.props.user) {
         return (
             <View>
+              <View style={{
+                flex: 0,
+                flexDirection: 'row'
+              }}>
+              <Nav />
+              </View>
               <Swiper
                 loop={false}
                 height={height}
                 width={width}
                 index={1}
-                showButtons={false}
-                removeClippedSubviews={false}>
+                showsButtons={false}
+                showsPagination={false}
+                removeClippedSubviews={false}
+                onIndexChanged={(index) => {
+                  this.props.dispatch(navActions.setTab({index : index - 1}))
+                }}>
                 <Camera />
                 <Component {...this.props} />
                 <Account />
