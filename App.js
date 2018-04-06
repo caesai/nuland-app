@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NativeRouter, Route, Link } from 'react-router-native';
 import { Provider } from 'react-redux';
 import {store} from './src/store';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 import routes from './src/routes/';
 

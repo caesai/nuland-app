@@ -1,4 +1,4 @@
-import { combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import * as authReducers from './auth';
 import * as navReducers from './nav';
 import * as popupReducers from './popup';

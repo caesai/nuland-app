@@ -20,7 +20,8 @@ export default function requireAuthentication(Component) {
     constructor(props) {
       super(props);
       this.state = {
-        visibleSwiper: false
+        visibleSwiper: false,
+        swiper: null
      };
     }
     componentDidMount() {
@@ -37,10 +38,11 @@ export default function requireAuthentication(Component) {
         // { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
       );
       setTimeout(() => {
-      this.setState({
-        visibleSwiper: true
-      });
-   }, 100);
+        this.setState({
+          visibleSwiper: true,
+          swiper: this.refs.swiper
+        });
+     }, 100);
     }
     componentWillUnmount() {
       Geolocation.clearWatch(this.watchId);
@@ -55,9 +57,10 @@ export default function requireAuthentication(Component) {
                 flex: 0,
                 flexDirection: 'row'
               }}>
-              <Nav />
+                <Nav swipe={this.state.swiper}/>
               </View>
               <Swiper
+                ref='swiper'
                 loop={false}
                 height={height}
                 width={width}
@@ -66,13 +69,16 @@ export default function requireAuthentication(Component) {
                 showsPagination={false}
                 removeClippedSubviews={false}
                 onIndexChanged={(index) => {
-                  this.props.dispatch(navActions.setTab({index : index - 1}))
+                  this.props.dispatch(navActions.setTab({index : index}))
                 }}>
                 <Camera />
                 <Component {...this.props} />
                 <Account />
+                <View><Text style={{fontSize: 32}}>Map/Marks</Text></View>
+                <View><Text style={{fontSize: 32}}>Storage</Text></View>
               </Swiper>
               <Link to='/account'><Text>Settings</Text></Link>
+
             </View>
         )
       } else {

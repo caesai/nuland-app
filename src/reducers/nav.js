@@ -2,7 +2,7 @@ import createReducer from '../lib/createReducer';
 import * as ActionTypes from '../actions/types';
 
 const initialState = {
-  activeTab: 0
+  activeTab: 1
 }
 
 export const nav = createReducer(initialState, {

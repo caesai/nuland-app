@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, AsyncStorage, NetInfo, Dimensions, Image } from 'react-native';
+import { StyleSheet, View, AsyncStorage, NetInfo, Dimensions, Image } from 'react-native';
 import { connect } from 'react-redux';
 import {Redirect} from 'react-router-native';
 import Login from '../components/Login';
 import {actions} from '../actions/auth';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const mapStateToProps = (state) => ({
   auth: state.logIn.isAuthenticated

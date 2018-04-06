@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableHighlight} from 'react-native';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import { connect } from 'react-redux'
-import {navActions} from '../actions/nav';
+import { navActions } from '../actions/nav';
 
 const mapStateToProps = (state) => ({
   tab: state.nav.activeTab
@@ -12,8 +12,12 @@ class Nav extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: 0,
+      activeTab: this.props.tab,
       tabs: [
+        {
+          tabName: 'Camera',
+          icon: 'camera'
+        },
         {
           tabName: 'NuLand Bot',
           icon: 'desktop'
@@ -33,12 +37,18 @@ class Nav extends React.Component{
       ]
     }
   }
+  componentWillReceiveProps() {
+    console.log('Swiper:')
+    console.log(this.props.swipe)
+  }
   renderRow(tab, key) {
     return (
-
       <TouchableHighlight
         onPress={()=>{
+          console.log(key);
           this.props.dispatch(navActions.setTab({index : key}))
+          this.props.swipe.updateIndex(key)
+          this.props.swipe.scrollBy(key)
         }}
 
         key={key}>
@@ -60,9 +70,6 @@ class Nav extends React.Component{
       </View>
       </TouchableHighlight>
     )
-  }
-  componentDidMount() {
-    console.log(this.props.tab)
   }
   render() {
     return (
