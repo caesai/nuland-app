@@ -46,9 +46,11 @@ class Nav extends React.Component{
       <TouchableHighlight
         onPress={()=>{
           console.log(key);
+          const tabLength = this.state.tabs.length - 1;
+          const activeTab = this.props.tab;
+          const newTab = key - activeTab;
           this.props.dispatch(navActions.setTab({index : key}))
-          this.props.swipe.updateIndex(key)
-          this.props.swipe.scrollBy(key)
+          this.props.swipe.scrollBy(newTab)
         }}
 
         key={key}>
