@@ -3,6 +3,7 @@ import { StyleSheet, View, AsyncStorage, NetInfo, Dimensions, Image } from 'reac
 import { connect } from 'react-redux';
 import {Redirect} from 'react-router-native';
 import Login from '../components/Login';
+import SignUp from '../components/SignUp';
 import {actions} from '../actions/auth';
 import styled from 'styled-components';
 
@@ -39,6 +40,7 @@ class MainView extends React.Component {
     this.state = {
       status: false,
       connection: '',
+      activeBtn: 0,
       auth: false
     };
   }
@@ -102,10 +104,24 @@ class MainView extends React.Component {
             marginTop: 30,
             maxHeight: 50
           }}>
-            <LoginBtn style={{flexDirection: 'row', alignSelf: 'flex-start'}}>SignIn</LoginBtn>
-            <LoginBtn style={{color: '#75a1c1'}}>SignUp</LoginBtn>
+            <LoginBtn
+              style={{flexDirection: 'row', alignSelf: 'flex-start'}}
+              onPress={()=>{
+                this.setState({
+                  activeBtn: 0
+                })
+              }}>SignIn</LoginBtn>
+            <LoginBtn
+              style={{color: '#75a1c1'}}
+              onPress={()=>{
+                this.setState({
+                  activeBtn: 1
+                })
+              }}>SignUp</LoginBtn>
           </View>
-          <Login />
+          {
+            this.state.activeBtn == 0 ? <Login /> : <SignUp />
+          }
         </View>
       )
     }

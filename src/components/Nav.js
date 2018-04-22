@@ -37,22 +37,15 @@ class Nav extends React.Component{
       ]
     }
   }
-  componentWillReceiveProps() {
-    console.log('Swiper:')
-    console.log(this.props.swipe)
-  }
   renderRow(tab, key) {
     return (
       <TouchableHighlight
         onPress={()=>{
-          console.log(key);
-          const tabLength = this.state.tabs.length - 1;
           const activeTab = this.props.tab;
           const newTab = key - activeTab;
           this.props.dispatch(navActions.setTab({index : key}))
           this.props.swipe.scrollBy(newTab)
         }}
-
         key={key}>
         <View style={{
           paddingTop: 10,
@@ -66,7 +59,7 @@ class Nav extends React.Component{
         <Text
           style={{
             fontSize: 15,
-            padding: 10,
+            padding: 5,
             color: this.props.tab == key ? '#fff' : '#3b99fc'
           }}>{tab.tabName}</Text>
       </View>
