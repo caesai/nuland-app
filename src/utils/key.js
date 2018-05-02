@@ -1,6 +1,10 @@
 import { NativeModules } from 'react-native'
 const { RNRandomBytes } = NativeModules
 
+if (!global.Buffer) {
+  global.Buffer = require('buffer/').Buffer;
+}
+
 const crypto = {
 
   randomBytes: (length:number) => new Promise((res, rej) => {

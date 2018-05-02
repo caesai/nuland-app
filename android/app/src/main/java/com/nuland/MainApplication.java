@@ -32,7 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
           new VectorIconsPackage(),
           new RNFSPackage(),
           new RNFetchBlobPackage(),
-          new RNCameraPackage(),
+          new RNCameraPackage()
       );
     }
 

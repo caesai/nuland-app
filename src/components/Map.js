@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import ReactMapGL from 'react-map-gl';
 
 const { height } = Dimensions.get('window');
 const { width } = Dimensions.get('window');
