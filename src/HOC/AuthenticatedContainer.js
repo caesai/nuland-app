@@ -11,6 +11,7 @@ import Swiper from 'react-native-swiper';
 import Account from '../views/Account';
 import Camera from '../views/Camera';
 import Nav from '../components/Nav';
+import Map from '../components/Map';
 
 const Geolocation = navigator.geolocation;
 
@@ -74,11 +75,9 @@ export default function requireAuthentication(Component) {
                 <Camera />
                 <Component {...this.props} />
                 <Account />
-                <View><Text style={{fontSize: 32}}>Map/Marks</Text></View>
+                <Map />
                 <View><Text style={{fontSize: 32}}>Storage</Text></View>
               </Swiper>
-              <Link to='/account'><Text>Settings</Text></Link>
-
             </View>
         )
       } else {

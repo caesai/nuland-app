@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, AsyncStorage, NetInfo, Dimensions, Image } from 'react-native';
+import { View, AsyncStorage, NetInfo, Image } from 'react-native';
 import { connect } from 'react-redux';
-import {Redirect} from 'react-router-native';
+import { Redirect } from 'react-router-native';
 import Login from '../components/Login';
 import SignUp from '../components/SignUp';
 import {actions} from '../actions/auth';
@@ -57,7 +57,6 @@ class MainView extends React.Component {
   }
   handleConnectionChange = (isConnected) => {
     this.setState({ status: isConnected });
-    console.log(`is connected: ${this.state.status}`);
     this.setState({ connection: `is connected: ${this.state.status}`});
   }
   componentDidMount() {
@@ -127,29 +126,5 @@ class MainView extends React.Component {
     }
   }
 }
-
-let { height, width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width - 100
-  },
-  title: {
-    fontSize: 32
-  },
-  heading: {
-    fontSize: 28,
-    marginBottom: 20,
-    fontWeight: 'bold'
-  },
-  link: {
-    fontSize: 26,
-    marginBottom: 20,
-    marginTop: 20
-  },
-  network: {
-    fontSize: 10
-  }
-});
 
 export default connect(mapStateToProps)(MainView);
