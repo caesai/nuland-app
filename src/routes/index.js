@@ -12,10 +12,10 @@ import Account from '../views/Account';
 const routes = (
     <View>
         <Route exact path='/' component={Home} />
-        <Route exact path='/about' component={About} />
-        <Route exact path='/chat' component={requireAuthentication(Chat)} />
-        <Route exact path='/camera' component={requireAuthentication(CameraView)} />
-        <Route exact path='/account' component={requireAuthentication(Account)} />
+        <Route path='/about' component={About} />
+        <Route path='/chat' component={requireAuthentication(Chat)} />
+        <Route path='/camera' component={requireAuthentication(CameraView)} />
+        <Route path='/account' component={requireAuthentication(Account)} />
     </View>
 )
 
