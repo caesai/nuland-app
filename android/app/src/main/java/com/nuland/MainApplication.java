@@ -3,6 +3,10 @@ package com.nuland;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.bitgo.randombytes.RandomBytesPackage;
+import com.rnfs.RNFSPackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import org.reactnative.camera.RNCameraPackage;
 import com.rnfs.RNFSPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import org.reactnative.camera.RNCameraPackage;
@@ -26,9 +30,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RandomBytesPackage(),
             new RNFSPackage(),
             new RNFetchBlobPackage(),
-            new RNCameraPackage()
+            new RNCameraPackage(),
       );
     }
 
