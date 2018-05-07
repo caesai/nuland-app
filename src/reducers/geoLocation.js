@@ -3,8 +3,8 @@ import * as ActionTypes from '../actions/types';
 
 const initialState = {
   location: {
-    lat: '',
-    lon: ''
+    lat: null,
+    lon: null
   }
 }
 

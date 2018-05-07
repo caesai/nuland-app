@@ -22,7 +22,9 @@ export default function requireAuthentication(Component) {
       super(props);
       this.state = {
         visibleSwiper: false,
-        swiper: null
+        swiper: null,
+        lat: 0,
+        lon: 0
      };
     }
     componentDidMount() {
