@@ -14,17 +14,20 @@ buildscript {
     }
 }
 
+ext {
+    supportlib_version = '26.1.0'
+}
+
 allprojects {
     configurations.all {
         resolutionStrategy {
           force "com.google.android.gms:play-services-vision:11.6.0"
           eachDependency { DependencyResolveDetails details ->
-          
-          if (details.requested.group == 'com.facebook.react' && details.requested.name == 'react-native') {
-              def file = new File("$rootDir/../node_modules/react-native/package.json")
-              def version = new groovy.json.JsonSlurper().parseText(file.text).version
-              details.useVersion version
-          }
+
+              if (details.requested.group == 'com.android.support'
+                      && !details.requested.name.contains('multidex') ) {
+                  details.useVersion "$supportlib_version"
+              }
        }
     }
     repositories {
