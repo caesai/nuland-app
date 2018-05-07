@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -17,16 +17,24 @@ buildscript {
 allprojects {
     configurations.all {
         resolutionStrategy {
-            force "com.google.android.gms:play-services-vision:11.6.0"
-        }
+          force "com.google.android.gms:play-services-vision:11.6.0"
+          eachDependency { DependencyResolveDetails details ->
+          
+          if (details.requested.group == 'com.facebook.react' && details.requested.name == 'react-native') {
+              def file = new File("$rootDir/../node_modules/react-native/package.json")
+              def version = new groovy.json.JsonSlurper().parseText(file.text).version
+              details.useVersion version
+          }
+       }
     }
     repositories {
         mavenLocal()
         jcenter()
-        maven { url "https://jitpack.io" }
-        maven { url "https://maven.google.com" }
         maven {
             url "$rootDir/../node_modules/react-native/android"
         }
+        maven { url "https://jitpack.io" }
+        maven { url "https://maven.google.com" }
+    }
     }
 }

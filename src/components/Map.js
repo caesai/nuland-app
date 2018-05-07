@@ -10,16 +10,18 @@ const mapStateToProps = (state) => ({
 })
 
 class Map extends React.Component {
-  state = {
-    viewport: {
-      width: width,
-      height: height,
-      latitude: this.props.geo.lat,
-      longitude: this.props.geo.lon,
-      zoom: 8
+  constructor(props){
+    super(props);
+    this.state = {
+      viewport: {
+        width: height,
+        height: width,
+        latitude: this.props.geo.lat,
+        longitude: this.props.geo.lon,
+        zoom: 8
+      }
     }
-  };
-
+  }
   render() {
     return(
       <View>
