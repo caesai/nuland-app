@@ -1,8 +1,11 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Dimensions} from 'react-native';
 
 import Message from './Message';
 import ChatInput from './ChatInput';
+
+const { height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 class Messages extends React.Component {
   constructor(props) {
@@ -19,7 +22,10 @@ class Messages extends React.Component {
   render() {
     return(
       <View>
-        <View>
+        <View style={{
+          height: height - 100,
+          paddingHorizontal: 10
+        }}>
           {
             this.props.messages.length ? (
               this.props.messages.map((message, i) => {

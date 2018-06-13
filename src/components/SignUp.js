@@ -105,6 +105,7 @@ class SignUp extends React.Component{
               key: this.state.key,
               private: this.state.private,
               public: this.state.public,
+              mnemonic: mnemonic,
               address: address0,
               ethAddress: `0x${ethAddress.toUpperCase()}`,
               token: ''
@@ -122,6 +123,7 @@ const mapStateToProps = (state) => ({
   key: state.logIn.key,
   private: state.logIn.private,
   public: state.logIn.public,
+  mnemonic: state.logIn.mnemonic,
   address: state.logIn.address,
   ethAddress: state.logIn.ethAddress
 })

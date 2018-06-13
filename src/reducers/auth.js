@@ -43,16 +43,22 @@ export const logIn = createReducer(initialState, {
       key: action.payload.key,
       private: action.payload.private,
       public: action.payload.public,
+      mnemonic: action.payload.mnemonic,
       address: action.payload.address,
       ethAddress: action.payload.ethAddress
     }
   },
   [ActionTypes.LOGIN](state, action) {
-    console.log(action)
     return {
       name: action.payload.username,
       isAuthenticated: true,
-      token: action.payload.token
+      token: action.payload.token,
+      key: action.payload.key,
+      private: action.payload.private,
+      mnemonic: action.payload.mnemonic,
+      public: action.payload.public,
+      address: action.payload.address,
+      ethAddress: action.payload.ethAddress
     }
   },
   [ActionTypes.LOGOUT](state, action) {

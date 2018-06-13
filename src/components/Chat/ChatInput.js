@@ -1,5 +1,7 @@
 import React from 'react';
-import {TextInput, Button, View} from 'react-native';
+import {TextInput, Button, View, Dimensions} from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 class ChatInput extends React.Component {
   constructor(props) {
@@ -15,9 +17,14 @@ class ChatInput extends React.Component {
   }
   render() {
     return (
-      <View>
+      <View style={{
+        position: 'absolute',
+        width: width,
+        bottom: 0
+      }}>
         <TextInput
           value={this.state.message}
+          placeholder='Enter your message'
           onChangeText={(e)=>{
             this.setState({
               'message': e

@@ -9,6 +9,7 @@ class Account extends React.Component{
     this.state = {
       latitude: null,
       longitude: null,
+      mnemonic: props.mnemonic || [],
       error: null
     }
   }
@@ -16,13 +17,18 @@ class Account extends React.Component{
   }
   render() {
     return(
-      <View>
+      <View style={{
+        paddingHorizontal: 10
+      }}>
         <Text>User: {this.props.name}</Text>
+        <Text>Private: {this.props.private}</Text>
         <Text>Public: {this.props.public}</Text>
         <Text>Balance: 0 NLD</Text>
         <Text>BTC: {this.props.address}</Text>
         <Text>ETH: {this.props.ethAddress}</Text>
-        <Text>Mnemonic: {this.props.mnemonic}</Text>
+        <Text>Mnemonic: {this.props.mnemonic.map((word, key) =>{
+          return <Text key={key}>{word} </Text>
+        })}</Text>
         <Text>Location:</Text>
         <Text>Lat: {this.props.geo.lat}</Text>
         <Text>Lon: {this.props.geo.lon}</Text>
