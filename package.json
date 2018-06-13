@@ -79,6 +79,8 @@
     "redux-thunk": "^2.2.0",
     "rn-nodeify": "^10.0.0",
     "secp256k1": "^3.5.0",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1",
     "stream-browserify": "^1.0.0",
     "string_decoder": "^0.10.31",
     "styled-components": "^3.2.3",
