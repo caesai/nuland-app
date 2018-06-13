@@ -23,7 +23,13 @@ const initialState = {
   isAuthenticated: false,
   token: '',
   name: '',
-  redirectingTo: ''
+  redirectingTo: '',
+  key: '',
+  private: null,
+  public: null,
+  address: null,
+  wif: null,
+  mnemonic: null
 };
 
 export const logIn = createReducer(initialState, {
@@ -33,7 +39,12 @@ export const logIn = createReducer(initialState, {
       isAuthenticating: false,
       name: action.payload.username,
       isAuthenticated: true,
-      token: action.payload.token
+      token: action.payload.token,
+      key: action.payload.key,
+      private: action.payload.private,
+      public: action.payload.public,
+      address: action.payload.address,
+      ethAddress: action.payload.ethAddress
     }
   },
   [ActionTypes.LOGIN](state, action) {

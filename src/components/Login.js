@@ -51,29 +51,35 @@ class Login extends React.Component {
           // geoClient.client.then(api => {
             // const signin_request = api.client.signup(this.state.log.toLowerCase().toString(), this.state.pas.toString());
             // console.log(signin_request)
-            fetch('http://146.185.128.182:4000/users/signin', {
-              method: 'POST',
-              body: '{"proof":"+wAd/P/RyJnzKXhxQGJC8JeuzxpTQszz680RYUYYjks=","username":"admin"}',
-              headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json'
-              }
-            })
-            .then(checkStatus)
-            .then(function(response) {
-                console.log("Content-Type" + response.headers.get('Content-Type'))
-                console.log("Date" + response.headers.get('Date'))
-                console.log("Status" + response.status)
-                console.log("Status text" + response.statusText)
-                return response
-            })
-            .then(parseJSON)
-            .then((data) => {
-              console.log('request succeeded with JSON response', data);
-              this.props.dispatch(ActionCreators.actions.auth(data));
-            }).catch(function(error) {
-              console.log('request failed', error)
-            });
+            // fetch('http://146.185.128.182:4000/users/signin', {
+            //   method: 'POST',
+            //   body: '{"proof":"+wAd/P/RyJnzKXhxQGJC8JeuzxpTQszz680RYUYYjks=","username":"admin"}',
+            //   headers: {
+            //       'Accept': 'application/json',
+            //       'Content-Type': 'application/json'
+            //   }
+            // })
+            // .then(checkStatus)
+            // .then(function(response) {
+            //     console.log("Content-Type" + response.headers.get('Content-Type'))
+            //     console.log("Date" + response.headers.get('Date'))
+            //     console.log("Status" + response.status)
+            //     console.log("Status text" + response.statusText)
+            //     return response
+            // })
+            // .then(parseJSON)
+            // .then((data) => {
+            //   console.log('request succeeded with JSON response', data);
+            //   this.props.dispatch(ActionCreators.actions.auth(data));
+            // }).catch(function(error) {
+            //   console.log('request failed', error)
+            // });
+
+            this.props.dispatch(ActionCreators.actions.auth({
+              username: this.state.log,
+              token: ''
+            }));
+
           // })
         }} title='Sign In'></Button>
       </View>

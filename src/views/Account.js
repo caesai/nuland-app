@@ -18,7 +18,11 @@ class Account extends React.Component{
     return(
       <View>
         <Text>User: {this.props.name}</Text>
+        <Text>Public: {this.props.public}</Text>
         <Text>Balance: 0 NLD</Text>
+        <Text>BTC: {this.props.address}</Text>
+        <Text>ETH: {this.props.ethAddress}</Text>
+        <Text>Mnemonic: {this.props.mnemonic}</Text>
         <Text>Location:</Text>
         <Text>Lat: {this.props.geo.lat}</Text>
         <Text>Lon: {this.props.geo.lon}</Text>
@@ -36,7 +40,13 @@ class Account extends React.Component{
 const authStateToProps = (state) => (console.log(state),{
   auth: state.logIn.isAuthenticated,
   name: state.logIn.name,
-  geo: state.geoLocation.location
+  geo: state.geoLocation.location,
+  key: state.logIn.key,
+  private: state.logIn.private,
+  public: state.logIn.public,
+  address: state.logIn.address,
+  mnemonic: state.logIn.mnemonic,
+  ethAddress: state.logIn.ethAddress
 });
 
 export default connect(authStateToProps)(Account);
