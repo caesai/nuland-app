@@ -2,7 +2,8 @@ import React from 'react';
 import { Text, TextInput, View, Button } from 'react-native';
 import socketIOClient from 'socket.io-client';
 import { connect } from 'react-redux';
-import { actions } from '../actions/auth';
+import { actions } from '../actions/bot';
+
 
 import Messages from '../components/Chat/Messages';
 
@@ -34,6 +35,16 @@ class Chat extends React.Component{
       console.log(message)
     })
   }
+  botAction(action) {
+    let actionArray = action.substr(action.indexOf("/") + 1).split(' ');
+    let [ botCommand, ...botParams] = actionArray;
+    let actionObject = {
+      botCommand: botCommand,
+      botParams: [...botParams]
+    }
+    this.props.dispatch(actions.start(actionObject));
+
+  }
   sendMessage(message, e){
     console.log(message);
     this.setState({
@@ -50,14 +61,22 @@ class Chat extends React.Component{
     });
   }
   componentDidMount() {
-    this.initChat()
+    this.initChat();
+    if (this.props.botMessage) {
+      this.setState({
+        messages : this.state.messages.concat([{
+         username : 'NulandBot',
+         message : this.props.botMessage,
+       }])
+      })
+    }
   }
   render() {
     const config = {
       velocityThreshold: 0.3,
       directionalOffsetThreshold: 80
     };
-    return <Messages sendMessage={this.sendMessage.bind(this)} messages={this.state.messages} />
+    return <Messages sendMessage={this.sendMessage.bind(this)} botAction={this.botAction.bind(this)} messages={this.state.messages} />
   }
 }
 
@@ -65,6 +84,7 @@ const mapStateToProps = (state) => ({
   auth: state.logIn.isAuthenticated,
   name: state.logIn.name,
   public: state.logIn.public,
+  botMessage: state.nulandBot.botMessage
 })
 
 export default connect(mapStateToProps)(Chat)

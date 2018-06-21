@@ -34,7 +34,7 @@ class Messages extends React.Component {
             ) : <Text>No messages in chat room</Text>
           }
         </View>
-        <ChatInput sendMessage={this.props.sendMessage}/>
+        <ChatInput sendMessage={this.props.sendMessage} botAction={this.props.botAction}/>
       </View>
     )
   }

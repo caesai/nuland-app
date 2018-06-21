@@ -28,6 +28,8 @@ const initialState = {
   private: null,
   public: null,
   address: null,
+  ethAddress: null,
+  balance: 0,
   wif: null,
   mnemonic: null
 };
@@ -58,7 +60,8 @@ export const logIn = createReducer(initialState, {
       mnemonic: action.payload.mnemonic,
       public: action.payload.public,
       address: action.payload.address,
-      ethAddress: action.payload.ethAddress
+      ethAddress: action.payload.ethAddress,
+      balance: action.payload.balance
     }
   },
   [ActionTypes.LOGOUT](state, action) {

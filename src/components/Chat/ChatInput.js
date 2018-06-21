@@ -16,6 +16,7 @@ class ChatInput extends React.Component {
     })
   }
   render() {
+    let textInp;
     return (
       <View style={{
         position: 'absolute',
@@ -24,6 +25,7 @@ class ChatInput extends React.Component {
       }}>
         <TextInput
           value={this.state.message}
+          ref={(input) => { textInp = input }}
           placeholder='Enter your message'
           onChangeText={(e)=>{
             this.setState({
@@ -33,6 +35,9 @@ class ChatInput extends React.Component {
         <Button
           title='Send'
           onPress={()=>{
+              if (textInp.props.value[0] === '/') {
+                this.props.botAction(textInp.props.value);
+              }
               this.props.sendMessage({
                 type : 'message',
                 text : this.state.message

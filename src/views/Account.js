@@ -9,11 +9,27 @@ class Account extends React.Component{
     this.state = {
       latitude: null,
       longitude: null,
+      balance: 0,
       mnemonic: props.mnemonic || [],
       error: null
     }
   }
   componentDidMount() {
+    const data = { address: this.props.ethAddress};
+    return fetch('http://194.58.122.82/balance',{
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    }).then((resp) => {
+      return resp.json();
+    }).then((data) => {
+      this.setState({
+        balance: data.balance
+      })
+    })
   }
   render() {
     return(
@@ -23,7 +39,7 @@ class Account extends React.Component{
         <Text>User: {this.props.name}</Text>
         <Text>Private: {this.props.private}</Text>
         <Text>Public: {this.props.public}</Text>
-        <Text>Balance: 0 NLD</Text>
+        <Text>Balance: {this.state.balance} NLD</Text>
         <Text>BTC: {this.props.address}</Text>
         <Text>ETH: {this.props.ethAddress}</Text>
         <Text>Mnemonic: {this.props.mnemonic.map((word, key) =>{
@@ -43,7 +59,7 @@ class Account extends React.Component{
   }
 }
 
-const authStateToProps = (state) => (console.log(state),{
+const authStateToProps = (state) => ({
   auth: state.logIn.isAuthenticated,
   name: state.logIn.name,
   geo: state.geoLocation.location,
@@ -52,7 +68,8 @@ const authStateToProps = (state) => (console.log(state),{
   public: state.logIn.public,
   address: state.logIn.address,
   mnemonic: state.logIn.mnemonic,
-  ethAddress: state.logIn.ethAddress
+  ethAddress: state.logIn.ethAddress,
+  balance: state.logIn.balance
 });
 
 export default connect(authStateToProps)(Account);
