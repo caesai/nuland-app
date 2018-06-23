@@ -7,7 +7,7 @@ export const SIGNUP = 'SIGNUP';
 export const SIGNIN = 'SIGNIN';
 
 // NULAND BOT ACTIONS
-export const START = 'START';
+export const BOT = 'BOT';
 // NULAND BOT ACTIONS END
 
 export const GETLOCATION = 'GETLOCATION';

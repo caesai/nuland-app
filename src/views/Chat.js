@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TextInput, View, Button } from 'react-native';
 import socketIOClient from 'socket.io-client';
 import { connect } from 'react-redux';
-import { actions } from '../actions/bot';
+import {botFunc} from '../utils/bot';
 
 
 import Messages from '../components/Chat/Messages';
@@ -23,7 +23,6 @@ class Chat extends React.Component{
     this.setState({
       chat_ready: true
     });
-    // io.connect('http://localhost:3000');
     this.socket = socketIOClient('ws://194.58.122.82:80', {
       query : 'username='+this.state.username+'&uid='+this.state.uid
     });
@@ -32,8 +31,7 @@ class Chat extends React.Component{
       this.setState({
         messages : this.state.messages.concat(message)
       });
-      console.log(message)
-    })
+    });
   }
   botAction(action) {
     let actionArray = action.substr(action.indexOf("/") + 1).split(' ');
@@ -42,11 +40,25 @@ class Chat extends React.Component{
       botCommand: botCommand,
       botParams: [...botParams]
     }
-    this.props.dispatch(actions.start(actionObject));
 
+    botFunc(actionObject)
+      .then((resp) => {
+        console.log('resp: ' + resp)
+        this.setState({
+          messages : this.state.messages.concat([{
+            username : 'NulandBot',
+            message : {
+              text: resp
+            },
+          }])
+        })
+      });
   }
   sendMessage(message, e){
-    console.log(message);
+    console.log(message)
+    if (message.type === 'bot') {
+      this.botAction(message.text)
+    }
     this.setState({
       messages : this.state.messages.concat([{
        username : this.props.name,
@@ -62,20 +74,13 @@ class Chat extends React.Component{
   }
   componentDidMount() {
     this.initChat();
-    if (this.props.botMessage) {
-      this.setState({
-        messages : this.state.messages.concat([{
-         username : 'NulandBot',
-         message : this.props.botMessage,
-       }])
-      })
-    }
   }
   render() {
     const config = {
       velocityThreshold: 0.3,
       directionalOffsetThreshold: 80
     };
+
     return <Messages sendMessage={this.sendMessage.bind(this)} botAction={this.botAction.bind(this)} messages={this.state.messages} />
   }
 }
@@ -84,7 +89,7 @@ const mapStateToProps = (state) => ({
   auth: state.logIn.isAuthenticated,
   name: state.logIn.name,
   public: state.logIn.public,
-  botMessage: state.nulandBot.botMessage
+  botMessage: state.nulandBot
 })
 
 export default connect(mapStateToProps)(Chat)
