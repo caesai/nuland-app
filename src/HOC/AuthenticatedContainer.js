@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import {AsyncStorage} from 'react-native';
 import requestPermission from '../utils';
 import {geoactions} from '../actions/geo';

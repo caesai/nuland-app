@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, AsyncStorage, NetInfo, Image } from 'react-native';
 import { connect } from 'react-redux';
-import SignIn from './Login/SignIn';
-import SignUp from './Login/SignUp';
 import {actions} from '../actions/auth';
 import styled from 'styled-components';
+
+import SignIn from './Login/SignIn';
+import SignUp from './Login/SignUp';
+import Restore from './Login/Restore';
 
 const Title = styled.Text`
   font-size: 32px;
@@ -98,9 +100,10 @@ class LoginView extends React.Component {
               })
             }}>SignUp</LoginBtn>
         </View>
-        {
+        {/*
           this.state.activeBtn == 0 ?  <SignIn /> : <SignUp />
-        }
+        */}
+        <Restore />
       </View>
     )
   }
