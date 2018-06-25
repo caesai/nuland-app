@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import {store} from './src/store';
 import styled from 'styled-components';
 
-import routes from './src/routes/';
+import AuthenticatedContainer from './src/HOC/AuthenticatedContainer';
 
 const MainContainer = styled.View`
   background: #ecf4fa;
@@ -21,7 +21,7 @@ export default class App extends React.Component {
             alignItems: 'center',
             flex: 1
           }}>
-            {routes}
+            <AuthenticatedContainer />
           </MainContainer>
         </NativeRouter>
       </Provider>

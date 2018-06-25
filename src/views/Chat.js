@@ -2,8 +2,7 @@ import React from 'react';
 import { Text, TextInput, View, Button } from 'react-native';
 import socketIOClient from 'socket.io-client';
 import { connect } from 'react-redux';
-import {botFunc} from '../utils/bot';
-
+import { botRequset } from '../utils/bot';
 
 import Messages from '../components/Chat/Messages';
 
@@ -26,7 +25,6 @@ class Chat extends React.Component{
     this.socket = socketIOClient('ws://194.58.122.82:80', {
       query : 'username='+this.state.username+'&uid='+this.state.uid
     });
-
     this.socket.on('message', (message) => {
       this.setState({
         messages : this.state.messages.concat(message)
@@ -41,7 +39,7 @@ class Chat extends React.Component{
       botParams: [...botParams]
     }
 
-    botFunc(actionObject)
+    botRequset(actionObject)
       .then((resp) => {
         console.log('resp: ' + resp)
         this.setState({
@@ -55,7 +53,6 @@ class Chat extends React.Component{
       });
   }
   sendMessage(message, e){
-    console.log(message)
     if (message.type === 'bot') {
       this.botAction(message.text)
     }

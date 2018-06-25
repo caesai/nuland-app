@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { ActionCreators } from '../actions';
+import { ActionCreators } from '../../actions';
 
 /* import crypto from '../utils/key'; */
 const bip39 = require('bip39');
@@ -100,12 +100,13 @@ class SignUp extends React.Component{
               ethAddress: `0x${ethAddress.toUpperCase()}`,
               wif: key0.toWIF()
             });
-            this.props.dispatch(ActionCreators.actions.auth({
+            this.props.dispatch(ActionCreators.actions.signup({
               username: this.state.username,
               key: this.state.key,
               private: this.state.private,
               public: this.state.public,
               mnemonic: mnemonic,
+              balance: 0,
               address: address0,
               ethAddress: `0x${ethAddress.toUpperCase()}`,
               token: ''

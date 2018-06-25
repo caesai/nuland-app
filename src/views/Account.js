@@ -9,27 +9,13 @@ class Account extends React.Component{
     this.state = {
       latitude: null,
       longitude: null,
-      balance: 0,
+      balance: props.balance,
       mnemonic: props.mnemonic || [],
       error: null
     }
   }
   componentDidMount() {
-    const data = { address: this.props.ethAddress};
-    return fetch('http://194.58.122.82/balance',{
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data)
-    }).then((resp) => {
-      return resp.json();
-    }).then((data) => {
-      this.setState({
-        balance: data.balance
-      })
-    })
+    
   }
   render() {
     return(
@@ -39,7 +25,7 @@ class Account extends React.Component{
         <Text>User: {this.props.name}</Text>
         <Text>Private: {this.props.private}</Text>
         <Text>Public: {this.props.public}</Text>
-        <Text>Balance: {this.state.balance} NLD</Text>
+        <Text>Balance: {this.props.balance} NLD</Text>
         <Text>BTC: {this.props.address}</Text>
         <Text>ETH: {this.props.ethAddress}</Text>
         <Text>Mnemonic: {this.props.mnemonic.map((word, key) =>{
