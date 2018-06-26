@@ -4,7 +4,6 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { ActionCreators } from '../../actions';
 
-/* import crypto from '../utils/key'; */
 const bip39 = require('bip39');
 const crypto = require('crypto');
 const secp256k1 = require('secp256k1');
@@ -28,7 +27,6 @@ class SignUp extends React.Component{
     return new Promise ((resolve, reject) => {
         crypto.randomBytes(32, (err, buf) => {
           if (err) reject(err);
-          console.log(`${buf.length} bytes of random data: ${buf.toString('hex')}`);
           resolve(buf);
         });
       }
@@ -42,12 +40,6 @@ class SignUp extends React.Component{
         private: key.toString('hex'),
         public: pubKey.toString('hex')
       });
-      /*this.props.dispatch(actions.userAuth({
-        name: this.state.username,
-        uid: pubKey.toString('hex'),
-        key: key.toString('hex'),
-        keyBuf: key
-      }))*/
     })
   }
   render() {
@@ -55,7 +47,6 @@ class SignUp extends React.Component{
       <View>
         <Text>Private key: {this.state.private && this.state.private}</Text>
         <Text>Public key: {this.state.public && this.state.public}</Text>
-        <Text>BTC Address: {this.state.address && this.state.address}</Text>
         <Text>ETH Address: {this.state.ethAddress && this.state.ethAddress}</Text>
         <Text>Mnemonic seed: {this.state.mnemonic && this.state.mnemonic.map((word, key) =>{
           return <Text key={key}>{word} </Text>
@@ -79,15 +70,10 @@ class SignUp extends React.Component{
             let mnemonic = bip39.entropyToMnemonic(this.state.key).split(' ');
             let phrase = _.join(mnemonic, ' ');
             let seedBuffer = bip39.mnemonicToSeed(phrase);
-            let masterNode = bitcoin.HDNode.fromSeedBuffer(seedBuffer);
-            let account0 = masterNode.derivePath("m/44'/0'/0'");
-            let key0 = account0.derivePath("0/0").keyPair;
-            let address0 = key0.getAddress();
             let ethAddress = ethUtils.privateToAddress(this.state.key).toString('hex');
 
             this.setState({
               mnemonic: mnemonic,
-              address: address0,
               ethAddress: `0x${ethAddress.toUpperCase()}`
             });
             this.props.dispatch(ActionCreators.actions.signup({
@@ -97,7 +83,6 @@ class SignUp extends React.Component{
               public: this.state.public,
               mnemonic: mnemonic,
               balance: 0,
-              address: address0,
               ethAddress: `0x${ethAddress.toUpperCase()}`,
               token: ''
             }));

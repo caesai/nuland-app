@@ -36,7 +36,6 @@ class ChatInput extends React.Component {
           title='Send'
           onPress={()=>{
               if (textInp.props.value[0] === '/') {
-                // this.props.botAction(textInp.props.value);
                 this.props.sendMessage({
                   type : 'bot',
                   text : this.state.message

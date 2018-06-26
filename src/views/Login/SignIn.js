@@ -47,18 +47,18 @@ class SignIn extends React.Component {
           }
         }></TextInput>
         <Button onPress={()=>{
-          // this.props.dispatch(ActionCreators.actions.signin({
-          //   username: this.state.log,
-          //   balance: 0,
-          //   isAuthenticated: true,
-          //   key: '',
-          //   private: '',
-          //   public: '',
-          //   mnemonic: '',
-          //   address: '',
-          //   ethAddress: '',
-          //   token: ''
-          // }));
+          this.props.dispatch(ActionCreators.actions.signin({
+            username: this.state.log,
+            balance: 0,
+            isAuthenticated: true,
+            key: '',
+            private: '',
+            public: '',
+            mnemonic: [],
+            address: '',
+            ethAddress: '',
+            token: ''
+          }));
         }} title='Sign In'></Button>
       </View>
     )

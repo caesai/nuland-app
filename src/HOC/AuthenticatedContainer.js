@@ -34,7 +34,6 @@ class AuthenticatedContainer extends React.Component {
       // Checking if user was authenticated on device
       const value = await AsyncStorage.getItem('nuland.storage');
       // Getting geo data from the device
-      console.log(value);
       Geolocation.watchPosition(
         (position) => {
           this.props.dispatch(geoactions.getLocation({
@@ -48,9 +47,11 @@ class AuthenticatedContainer extends React.Component {
       if (value !== null){
         let userData = JSON.parse(value);
         let address = userData.ethAddress;
-        console.log(userData)
         getBalance(address).then((balance) => {
           userData.balance = balance;
+          this.setState({
+            userData
+          })
           this.props.dispatch(actions.signin(userData));
         })
         // Checking user balance

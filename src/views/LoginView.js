@@ -35,22 +35,25 @@ class LoginView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: false,
-      connection: '',
       activeBtn: 0,
       auth: false
     };
+    this.renderComponent = this.renderComponent.bind(this);
   }
-  handleConnectionChange = (isConnected) => {
-    this.setState({ status: isConnected });
-    this.setState({ connection: `is connected: ${this.state.status}`});
+  renderComponent(param) {
+    switch(param) {
+        case 0:
+        return <SignIn />;
+        case 1:
+        return <SignUp />;
+        case 2:
+        return <Restore />;
+        default:
+        break;
+      }
   }
   componentDidMount() {
-    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectionChange);
 
-    NetInfo.isConnected.fetch().done(
-      (isConnected) => { this.setState({ status: isConnected }); }
-    );
   }
   render() {
     let logo = require('../img/logo.png');
@@ -99,11 +102,15 @@ class LoginView extends React.Component {
                 activeBtn: 1
               })
             }}>SignUp</LoginBtn>
+            <LoginBtn
+              style={{color: '#75a1c1'}}
+              onPress={()=>{
+                this.setState({
+                  activeBtn: 2
+                })
+              }}>Restore</LoginBtn>
         </View>
-        {/*
-          this.state.activeBtn == 0 ?  <SignIn /> : <SignUp />
-        */}
-        <Restore />
+        {this.renderComponent(this.state.activeBtn)}
       </View>
     )
   }

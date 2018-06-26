@@ -9,13 +9,11 @@ class Account extends React.Component{
     this.state = {
       latitude: null,
       longitude: null,
-      balance: props.balance,
-      mnemonic: props.mnemonic || [],
       error: null
     }
   }
   componentDidMount() {
-    
+
   }
   render() {
     return(
@@ -26,7 +24,6 @@ class Account extends React.Component{
         <Text>Private: {this.props.private}</Text>
         <Text>Public: {this.props.public}</Text>
         <Text>Balance: {this.props.balance} NLD</Text>
-        <Text>BTC: {this.props.address}</Text>
         <Text>ETH: {this.props.ethAddress}</Text>
         <Text>Mnemonic: {this.props.mnemonic.map((word, key) =>{
           return <Text key={key}>{word} </Text>
