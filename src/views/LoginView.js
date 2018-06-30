@@ -42,15 +42,15 @@ class LoginView extends React.Component {
   }
   renderComponent(param) {
     switch(param) {
-        case 0:
-        return <SignIn />;
-        case 1:
-        return <SignUp />;
-        case 2:
-        return <Restore />;
-        default:
-        break;
-      }
+      case 0:
+      return <SignIn />;
+      case 1:
+      return <SignUp />;
+      case 2:
+      return <Restore />;
+      default:
+      return;
+    }
   }
   componentDidMount() {
 

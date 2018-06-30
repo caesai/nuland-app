@@ -31,7 +31,8 @@ const initialState = {
   ethAddress: null,
   balance: 0,
   wif: null,
-  mnemonic: null
+  mnemonic: null,
+  tx_hash: ''
 };
 
 export const logIn = createReducer(initialState, {
@@ -48,7 +49,8 @@ export const logIn = createReducer(initialState, {
       mnemonic: action.payload.mnemonic,
       address: action.payload.address,
       ethAddress: action.payload.ethAddress,
-      balance: action.payload.balance
+      balance: action.payload.balance,
+      tx_hash: action.payload.tx_hash
     }
   },
   [ActionTypes.SIGNUP](state, action) {
@@ -62,7 +64,8 @@ export const logIn = createReducer(initialState, {
       public: action.payload.public,
       address: action.payload.address,
       ethAddress: action.payload.ethAddress,
-      balance: action.payload.balance
+      balance: action.payload.balance,
+      tx_hash: action.payload.tx_hash
     }
   },
   [ActionTypes.LOGOUT](state, action) {
