@@ -33,7 +33,6 @@ const initialState = {
 
 export const logIn = createReducer(initialState, {
   [ActionTypes.SIGNIN](state, action) {
-    setUserData(action.payload)
     return {
       isAuthenticating: false,
       name: action.payload.username,
@@ -50,6 +49,7 @@ export const logIn = createReducer(initialState, {
     }
   },
   [ActionTypes.SIGNUP](state, action) {
+    setUserData(action.payload)
     return {
       name: action.payload.username,
       isAuthenticated: true,
