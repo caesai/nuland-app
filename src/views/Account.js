@@ -21,8 +21,8 @@ class Account extends React.Component{
         paddingHorizontal: 10
       }}>
         <Text>User: {this.props.name}</Text>
-        <Text>Private: {this.props.private}</Text>
-        <Text>Public: {this.props.public}</Text>
+        <Text>Private: {this.props.privKey}</Text>
+        <Text>Public: {this.props.pubKey}</Text>
         <Text>Balance: {this.props.balance} NLD</Text>
         <Text>ETH: {this.props.ethAddress}</Text>
         <Text>Mnemonic: {this.props.mnemonic.map((word, key) =>{
@@ -47,8 +47,8 @@ const authStateToProps = (state) => ({
   name: state.logIn.name,
   geo: state.geoLocation.location,
   key: state.logIn.key,
-  private: state.logIn.private,
-  public: state.logIn.public,
+  privKey: state.logIn.privKey,
+  pubKey: state.logIn.pubKey,
   address: state.logIn.address,
   mnemonic: state.logIn.mnemonic,
   ethAddress: state.logIn.ethAddress,

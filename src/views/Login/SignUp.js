@@ -17,9 +17,8 @@ class SignUp extends React.Component{
     super(props)
     this.state = {
       username: '',
-      key: '',
-      private: null,
-      public: null,
+      privKey: '',
+      pubKey: '',
       ethAddress: null,
       mnemonic: null
     }
@@ -61,19 +60,23 @@ class SignUp extends React.Component{
         <Button
           onPress={()=>{
 
-            this.generatePrivateKey().then( rndmBts => {
-              let privKeyHex = hash256.update(rndmBts.toString('hex') + this.state.username);
-              const key = new Buffer(privKeyHex.digest('hex'), 'hex');
-              let pubKey = secp256k1.publicKeyCreate(key);
+            this.generatePrivateKey().then(key => {
+              privKey = key;
+              pubKey = secp256k1.publicKeyCreate(key);
 
               let mnemonic = bip39.entropyToMnemonic(key).split(' ');
               let ethAddress = ethUtils.privateToAddress(key).toString('hex');
 
               this.setState({
-                privKey: key.toString('hex'),
-                pubKey: pubKey.toString('hex')
+                privKey:privKey.toString('hex') + pubKey.toString('hex').substring(0, 64),
+                pubKey: pubKey.toString('hex').substring(0, 64),
+                mnemonic: mnemonic,
+                ethAddress: `0x${ethAddress.toUpperCase()}`
               });
-
+            }).then(() => {
+              console.log(this.state)
+              console.log(this.state.pubKey.length)
+              console.log(this.state.privKey.length)
               const CreateTransaction = {
                 protocol_version: 0,
                 service_id: 128,
@@ -90,14 +93,14 @@ class SignUp extends React.Component{
               }
 
               const TxCreateWallet = Exonum.newMessage(CreateTransaction);
-                
-              const signature = TxCreateWallet.sign(key.toString('hex') , data);
+
+              const signature = TxCreateWallet.sign(this.state.privKey, data);
 
               TxCreateWallet.signature = signature;
 
               const hash = TxCreateWallet.hash(data);
 
-              TxCreateWallet.send('http://146.185.145.5', '/api/explorer/v1/transactions/', data, signature)
+              TxCreateWallet.send('http://146.185.145.5/api/services/cryptocurrency/v1/wallets/transaction', '/api/explorer/v1/transactions/', data, signature)
               .then(() => {
                 console.log(data);
                 this.setState({
@@ -111,9 +114,9 @@ class SignUp extends React.Component{
                 username: this.state.username,
                 privKey: this.state.privKey,
                 pubKey: this.state.pubKey,
-                mnemonic: mnemonic,
+                mnemonic: this.state.mnemonic,
                 balance: 0,
-                ethAddress: `0x${ethAddress.toUpperCase()}`,
+                ethAddress: this.state.ethAddress,
                 tx_hash : this.state.hash
               }));
             });
@@ -129,8 +132,8 @@ const mapStateToProps = (state) => ({
   auth: state.logIn.isAuthenticated,
   name: state.logIn.name,
   key: state.logIn.key,
-  private: state.logIn.private,
-  public: state.logIn.public,
+  privKey: state.logIn.privKey,
+  pubKey: state.logIn.pubKey,
   mnemonic: state.logIn.mnemonic,
   address: state.logIn.address,
   ethAddress: state.logIn.ethAddress,

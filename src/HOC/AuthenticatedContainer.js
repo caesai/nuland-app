@@ -46,14 +46,14 @@ class AuthenticatedContainer extends React.Component {
 
       if (value !== null){
         let userData = JSON.parse(value);
-        let address = userData.ethAddress;
-        getBalance(address).then((balance) => {
-          userData.balance = balance;
-          this.setState({
-            userData
-          })
-          this.props.dispatch(actions.signin(userData));
-        })
+        // let address = userData.ethAddress;
+        // getBalance(address).then((balance) => {
+        //   userData.balance = balance;
+        //   this.setState({
+        //     userData
+        //   })
+        // })
+        this.props.dispatch(actions.signin(userData));
         // Checking user balance
       }
     } catch (error) {
