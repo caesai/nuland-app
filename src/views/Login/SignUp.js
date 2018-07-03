@@ -6,7 +6,7 @@ import { ActionCreators } from '../../actions';
 
 const bip39 = require('bip39');
 const crypto = require('crypto');
-const hash256 = crypto.createHash('sha256');
+const hasher = crypto.createHash('sha256');
 const secp256k1 = require('secp256k1');
 const bitcoin = require('bitcoinjs-lib');
 const ethUtils = require('ethereumjs-util');
@@ -60,12 +60,13 @@ class SignUp extends React.Component{
         <Button
           onPress={()=>{
 
-            this.generatePrivateKey().then(key => {
-              privKey = key;
-              pubKey = secp256k1.publicKeyCreate(key);
+            this.generatePrivateKey().then(rndBts => {
+              const saltKey = hasher.update(rndBts.toString('hex') + this.state.username).digest('hex');
+              const privKey = new Buffer(saltKey, 'hex');
+              const pubKey = secp256k1.publicKeyCreate(privKey);
 
-              let mnemonic = bip39.entropyToMnemonic(key).split(' ');
-              let ethAddress = ethUtils.privateToAddress(key).toString('hex');
+              let mnemonic = bip39.entropyToMnemonic(privKey).split(' ');
+              let ethAddress = ethUtils.privateToAddress(privKey).toString('hex');
 
               this.setState({
                 privKey:privKey.toString('hex') + pubKey.toString('hex').substring(0, 64),
